@@ -27,27 +27,28 @@ def merge(line):
     imax = len(line) - 1
     good_line = list(line) # because tmp_line should be a real new list
     hemos_hecho_algun_cambio = True
+    hemos_terminado_de_sumar = False
     hemos_sumado = False
     while hemos_hecho_algun_cambio:
         hemos_hecho_algun_cambio = False
         working_line = list(good_line)
         for i in range(1, imax + 1):
-
-            primera_celda_llena = i - 1
-            for j in range(i - 1, -1, -1):
-                if good_line[j] == 0:
-                    primera_celda_llena = j - 1
-            if i > 1:
-                ultima_celda_vacia = primera_celda_llena +1
-            else:
-                ultima_celda_vacia = -1
-            if ultima_celda_vacia != -1:
-                working_line[ultima_celda_vacia] = good_line[i] # movemos la celda
-                working_line[i] = 0 # ponemos un cero en la celda que hemos dejado vacía
-                hemos_hecho_algun_cambio = True
-            good_line = list(working_line)
+            if good_line[i] != 0:
+                primera_celda_llena = i - 1
+                for j in range(i - 1, -1, -1):
+                    if good_line[j] == 0:
+                        primera_celda_llena = j - 1
+                if i > 1 and (i - primera_celda_llena) > 1:
+                    ultima_celda_vacia = primera_celda_llena +1
+                else:
+                    ultima_celda_vacia = -1
+                if ultima_celda_vacia != -1:
+                    working_line[ultima_celda_vacia] = good_line[i] # movemos la celda
+                    working_line[i] = 0 # ponemos un cero en la celda que hemos dejado vacía
+                    hemos_hecho_algun_cambio = True
+                good_line = list(working_line)
         # Vamos a sumar si procede
-        if not hemos_sumado:
+        if not hemos_terminado_de_sumar:
             working_line = list(good_line)
             for i in range(1, imax + 1):
                 if good_line[i] == good_line[i - 1]:
@@ -56,11 +57,50 @@ def merge(line):
                     working_line[i] = 0
                     hemos_hecho_algun_cambio = True
                     hemos_sumado = True
+                    if hemos_sumado and i == imax:
+                        hemos_terminado_de_sumar = True
                 good_line = working_line
+            if hemos_sumado and i == 3:
+                        hemos_terminado_de_sumar = True
     return good_line
 
 
+
 line_in = [2, 0, 2, 4]
+line_out = merge(line_in)
+print
+print line_in
+print line_out
+print
+print '---------'
+line_in = [0, 0, 2, 2]
+line_out = merge(line_in)
+print
+print line_in
+print line_out
+print
+print '---------'
+line_in = [2, 2, 0, 0]
+line_out = merge(line_in)
+print
+print line_in
+print line_out
+print
+print '---------'
+
+
+
+line_in = [2, 2, 2, 2]
+line_out = merge(line_in)
+print
+print line_in
+print line_out
+print
+print '---------'
+
+
+
+line_in = [8, 16, 16, 8]
 line_out = merge(line_in)
 print
 print line_in
