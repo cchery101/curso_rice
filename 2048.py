@@ -287,4 +287,38 @@ class TwentyFortyEight:
 poc_testsuite_for_2048.run_test(merge)
 
 
+a = TwentyFortyEight(7, 4)
+print a
 
+a.set_tile(3, 1, 1)
+print a
+print a.get_tile(3, 1)
+
+print '+++++++++++++++'
+for i in range(14):
+    a.new_tile()
+
+print a
+print
+print '******************** Move ***************'
+print 'UP'
+a.move('UP')
+
+print 'DOWN'
+a.move('DOWN')
+
+
+print 'LEFT'
+a.move('LEFT')
+
+
+print 'RIGHT'
+a.move('RIGHT')
+
+
+print
+print 'prueba del merge caso especial'
+print
+line = [8, 16, 16, 8]
+print line
+print merge(line)
