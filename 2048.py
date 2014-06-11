@@ -5,6 +5,7 @@ Clone of 2048 game.
 
 # import poc_2048_gui
 from random import randint
+import copy
 
 # Directions, DO NOT MODIFY
 UP = 1
@@ -79,6 +80,8 @@ class TwentyFortyEight:
         self._grid = []
         self.reset()
 
+
+
     def change_col(self, col_number, new_col):
         """
        Cambia una columna en el grid
@@ -100,9 +103,6 @@ class TwentyFortyEight:
         antes = self._grid
         self._grid[row_number] = new_row
 
-        print 'antes = ', antes
-        print
-        print 'despues = ', self._grid
         return
 
 
@@ -161,16 +161,26 @@ class TwentyFortyEight:
         if direction == 'UP':
             for i in range(self._grid_width):
                 tira.append(cols[i])
-            print ' Vamos a sustituir la tira antigua por la tira mergeada'
 
+
+            # Sustituimos las tiras antiguas por las mergeadas
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+            antes = copy.deepcopy(list(self._grid))
             for i in range(self._grid_width):
+
                 print ' antes = ', self
                 self.change_col(i, merge(tira[i]))
                 print
                 print 'Cambiamos la tira ', i
                 print
                 print 'despues de UP = ', self
-                print
+
+            despues = copy.deepcopy(list(self._grid))
+            if antes == despues:
+                pass
+            else:
+                self.new_tile()
+            print ' despues de new_tile = ', self
             return
 
 
@@ -182,6 +192,32 @@ class TwentyFortyEight:
         elif direction == 'DOWN':
             for i in range(self._grid_width):
                 tira.append(cols[i][::-1])
+
+
+            # Sustituimos las tiras antiguas por las mergeadas
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+            antes = copy.deepcopy(list(self._grid))
+            for i in range(self._grid_width):
+
+                print ' antes = ', self
+                tmp1 = merge(tira[i])
+                tmp2 = tmp1[::-1]
+                self.change_col(i, tmp2)
+                print
+                print 'Cambiamos la tira ', i
+                print
+                print 'despues de DOWN = ', self
+
+            despues = copy.deepcopy(list(self._grid))
+            if antes == despues:
+                pass
+            else:
+                self.new_tile()
+            print ' despues de new_tile = ', self
+            return
+
+
+
         if direction == 'LEFT':
             for i in range(self._grid_height):
                 tira.append(fils[i])
@@ -260,9 +296,11 @@ print
 print '******************** Move ***************'
 print 'UP'
 a.move('UP')
-input()
+
 print 'DOWN'
 a.move('DOWN')
+input()
+
 print 'LEFT'
 a.move('LEFT')
 print 'RIGHT'
