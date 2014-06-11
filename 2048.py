@@ -3,9 +3,9 @@
 Clone of 2048 game.
 """
 
-import poc_2048_gui
+# import poc_2048_gui
 from random import randint
-from copy import deepcopy as deepcopy
+import poc_testsuite_for_2048
 
 # Directions, DO NOT MODIFY
 UP = 1
@@ -150,7 +150,8 @@ class TwentyFortyEight:
 
             # Sustituimos las tiras antiguas por las mergeadas
             # print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            # antes = deepcopy(list(self._grid))
+            antes = [list(inner_list) for inner_list in self._grid]
             for i in range(self._grid_width):
 
                 # print ' antes = ', self
@@ -160,7 +161,8 @@ class TwentyFortyEight:
                 # print
                 # print 'despues de UP = ', self
 
-            despues = deepcopy(list(self._grid))
+            # despues = deepcopy(list(self._grid))
+            despues = [list(inner_list) for inner_list in self._grid]
             if antes == despues:
                 pass
             else:
@@ -174,7 +176,8 @@ class TwentyFortyEight:
                 tira.append(cols[i][::-1])
             # Sustituimos las tiras antiguas por las mergeadas
             print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            # antes = deepcopy(list(self._grid))
+            antes = [list(inner_list) for inner_list in self._grid]
             for i in range(self._grid_width):
 
                 print ' antes = ', self
@@ -185,7 +188,8 @@ class TwentyFortyEight:
                 # print 'Cambiamos la tira ', i
                 # print
                 # print 'despues de DOWN = ', self
-            despues = deepcopy(list(self._grid))
+            # despues = deepcopy(list(self._grid))
+            despues = [list(inner_list) for inner_list in self._grid]
             if antes == despues:
                 pass
             else:
@@ -197,7 +201,8 @@ class TwentyFortyEight:
                 tira.append(fils[i])
             # Sustituimos las tiras antiguas por las mergeadas
             # print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            # antes = deepcopy(list(self._grid))
+            antes = [list(inner_list) for inner_list in self._grid]
             for i in range(self._grid_height):
 
                 # print ' antes = ', self
@@ -206,7 +211,8 @@ class TwentyFortyEight:
                 # print 'Cambiamos la tira ', i
                 # print
                 # print 'despues de LEFT = ', self
-            despues = deepcopy(list(self._grid))
+            # despues = deepcopy(list(self._grid))
+            despues = [list(inner_list) for inner_list in self._grid]
             if antes == despues:
                 pass
             else:
@@ -219,7 +225,8 @@ class TwentyFortyEight:
 
             # Sustituimos las tiras antiguas por las mergeadas
             print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            # antes = deepcopy(list(self._grid))
+            antes = [list(inner_list) for inner_list in self._grid]
             for i in range(self._grid_height):
 
                 # print ' antes = ', self
@@ -230,7 +237,8 @@ class TwentyFortyEight:
                 # print 'Cambiamos la tira ', i
                 # print
                 # print 'despues de RIGHT = ', self
-            despues = deepcopy(list(self._grid))
+            # despues = deepcopy(list(self._grid))
+            despues = [list(inner_list) for inner_list in self._grid]
             if antes == despues:
                 pass
             else:
@@ -274,7 +282,9 @@ class TwentyFortyEight:
         return self._grid[row][col]
 
 
-poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
+# poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
+
+poc_testsuite_for_2048.run_test(merge)
 
 
 
