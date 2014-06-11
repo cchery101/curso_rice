@@ -4,6 +4,7 @@ Clone of 2048 game.
 """
 
 # import poc_2048_gui
+from random import randint
 
 # Directions, DO NOT MODIFY
 UP = 1
@@ -44,6 +45,11 @@ def merge(line):
                     working_line[ultima_celda_vacia] = good_line[i] # movemos la celda
                     working_line[i] = 0 # ponemos un cero en la celda que hemos dejado vacía
                     hemos_hecho_algun_cambio = True
+                else:
+                    if good_line[1] != 0 and good_line[0] == 0:
+                        working_line[0] = good_line[1] # movemos la celda en 1
+                        working_line[1] = 0 # ponemos un cero en la celda 1
+                        hemos_hecho_algun_cambio = True
                 good_line = list(working_line)
         # Vamos a sumar si procede
         if not hemos_terminado_de_sumar:
@@ -72,6 +78,39 @@ class TwentyFortyEight:
         self._grid_width = grid_width
         self._grid = []
         self.reset()
+
+    def change_col(self, col_number, new_col):
+        """
+       Cambia una columna en el grid
+        """
+
+        antes = self._grid
+        for i in range(self._grid_height):
+            self._grid[i][col_number] = new_col[i]
+        print 'antes = ', antes
+        print
+        print 'despues = ', self._grid
+        return
+
+    def change_row(self, row_number, new_row):
+        """
+        Cambia una fila en el grid
+        """
+
+        antes = self._grid
+        self._grid[row_number] = new_row
+
+        print 'antes = ', antes
+        print
+        print 'despues = ', self._grid
+        return
+
+
+
+
+
+
+
 
 
     def reset(self):
@@ -106,8 +145,65 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
-        # replace with your code
-        pass
+        fils = []
+        for i in range(self._grid_height):
+            fils.append(self._grid[i])
+        transpose_grid = zip(*self._grid)
+        cols = []
+        for i in range(self._grid_width):
+            cols.append(transpose_grid[i])
+        print
+        print 'fils = ', fils
+        print 'cols = ', cols
+        print
+        tira = []
+
+        if direction == 'UP':
+            for i in range(self._grid_width):
+                tira.append(cols[i])
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+
+            for i in range(self._grid_width):
+                print ' antes = ', self
+                self.change_col(i, merge(tira[i]))
+                print
+                print 'Cambiamos la tira ', i
+                print
+                print 'despues de UP = ', self
+                print
+            return
+
+
+
+
+
+
+
+        elif direction == 'DOWN':
+            for i in range(self._grid_width):
+                tira.append(cols[i][::-1])
+        if direction == 'LEFT':
+            for i in range(self._grid_height):
+                tira.append(fils[i])
+        elif direction == 'RIGHT':
+            for i in range(self._grid_height):
+                tira.append(fils[i][::-1])
+
+
+        old_grid = self._grid
+
+
+
+
+
+
+        print 'tira = ', tira
+
+
+
+
+
+
 
     def new_tile(self):
         """
@@ -115,8 +211,21 @@ class TwentyFortyEight:
         square.  The tile should be 2 90% of the time and
         4 10% of the time.
         """
-        # replace with your code
-        pass
+        cero_tiles = []
+        for i in range(self._grid_height):
+            for j in range(self._grid_width):
+                if self._grid[i][j] == 0:
+                    cero_tiles.append((i, j))
+        num_ceros = len(cero_tiles)
+        random_tupla = randint(0, num_ceros - 1)
+        random_cero_tile = cero_tiles[random_tupla]
+        if randint(1, 10) == 1:
+            two_or_four = 2
+        else:
+            two_or_four = 4
+        self.set_tile(random_cero_tile[0], random_cero_tile[1], two_or_four)
+        return
+
 
     def set_tile(self, row, col, value):
         """
@@ -133,9 +242,36 @@ class TwentyFortyEight:
 
 # poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
 
+
+
 a = TwentyFortyEight(7, 4)
 print a
 
 a.set_tile(3, 1, 1)
 print a
 print a.get_tile(3, 1)
+
+print '+++++++++++++++'
+for i in range(14):
+    a.new_tile()
+
+print a
+print
+print '******************** Move ***************'
+print 'UP'
+a.move('UP')
+input()
+print 'DOWN'
+a.move('DOWN')
+print 'LEFT'
+a.move('LEFT')
+print 'RIGHT'
+a.move('RIGHT')
+
+
+print
+print 'prueba del merge caso especial'
+print
+line = [0,2,0,4,4,0,0]
+print line
+print merge(line)
