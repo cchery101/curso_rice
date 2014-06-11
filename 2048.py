@@ -221,19 +221,62 @@ class TwentyFortyEight:
         if direction == 'LEFT':
             for i in range(self._grid_height):
                 tira.append(fils[i])
+
+
+            # Sustituimos las tiras antiguas por las mergeadas
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+            antes = copy.deepcopy(list(self._grid))
+            for i in range(self._grid_height):
+
+                print ' antes = ', self
+                self.change_row(i, merge(tira[i]))
+                print
+                print 'Cambiamos la tira ', i
+                print
+                print 'despues de LEFT = ', self
+
+            despues = copy.deepcopy(list(self._grid))
+            if antes == despues:
+                pass
+            else:
+                self.new_tile()
+            print ' despues de new_tile = ', self
+            return
+
+
+
+
+
+
+
+
+
+
         elif direction == 'RIGHT':
             for i in range(self._grid_height):
                 tira.append(fils[i][::-1])
 
+            # Sustituimos las tiras antiguas por las mergeadas
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+            antes = copy.deepcopy(list(self._grid))
+            for i in range(self._grid_height):
 
-        old_grid = self._grid
+                print ' antes = ', self
+                tmp1 = merge(tira[i])
+                tmp2 = tmp1[::-1]
+                self.change_row(i, tmp2)
+                print
+                print 'Cambiamos la tira ', i
+                print
+                print 'despues de RIGHT = ', self
 
-
-
-
-
-
-        print 'tira = ', tira
+            despues = copy.deepcopy(list(self._grid))
+            if antes == despues:
+                pass
+            else:
+                self.new_tile()
+            print ' despues de new_tile = ', self
+            return
 
 
 
@@ -299,10 +342,12 @@ a.move('UP')
 
 print 'DOWN'
 a.move('DOWN')
-input()
+
 
 print 'LEFT'
 a.move('LEFT')
+
+
 print 'RIGHT'
 a.move('RIGHT')
 
@@ -310,6 +355,6 @@ a.move('RIGHT')
 print
 print 'prueba del merge caso especial'
 print
-line = [0,2,0,4,4,0,0]
+line = [8, 16, 16, 8]
 print line
 print merge(line)
