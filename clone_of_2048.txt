@@ -5,7 +5,7 @@ Clone of 2048 game.
 
 import poc_2048_gui
 from random import randint
-from copy import deepcopy as deepcopy
+
 
 # Directions, DO NOT MODIFY
 UP = 1
@@ -44,7 +44,7 @@ def merge(line):
                     ultima_celda_vacia = -1
                 if ultima_celda_vacia != -1:
                     working_line[ultima_celda_vacia] = good_line[i] # movemos la celda
-                    working_line[i] = 0 # ponemos un cero en la celda que hemos dejado vacía
+                    working_line[i] = 0 # ponemos un cero en la celda que hemos dejado vacÃ­a
                     hemos_hecho_algun_cambio = True
                 else:
                     if good_line[1] != 0 and good_line[0] == 0:
@@ -80,24 +80,32 @@ class TwentyFortyEight:
         self._grid = []
         self.reset()
 
+
+
     def change_col(self, col_number, new_col):
         """
        Cambia una columna en el grid
         """
+
+        antes = self._grid
         for i in range(self._grid_height):
             self._grid[i][col_number] = new_col[i]
-        # print 'antes = ', antes
-        # print
-        # print 'despues = ', self._grid
+        print 'antes = ', antes
+        print
+        print 'despues = ', self._grid
         return
 
     def change_row(self, row_number, new_row):
         """
         Cambia una fila en el grid
         """
+
+        antes = self._grid
         self._grid[row_number] = new_row
 
         return
+
+
 
     def reset(self):
         """
@@ -138,105 +146,109 @@ class TwentyFortyEight:
         cols = []
         for i in range(self._grid_width):
             cols.append(transpose_grid[i])
-        # print
-        # print 'fils = ', fils
-        # print 'cols = ', cols
-        # print
+
         tira = []
 
         if direction == 'UP':
             for i in range(self._grid_width):
                 tira.append(cols[i])
 
+
             # Sustituimos las tiras antiguas por las mergeadas
-            # print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+            antes = copy.deepcopy(list(self._grid))
             for i in range(self._grid_width):
 
-                # print ' antes = ', self
                 self.change_col(i, merge(tira[i]))
-                # print
-                # print 'Cambiamos la tira ', i
-                # print
-                # print 'despues de UP = ', self
 
-            despues = deepcopy(list(self._grid))
+            despues = copy.deepcopy(list(self._grid))
             if antes == despues:
                 pass
             else:
                 self.new_tile()
-            # print ' despues de new_tile = ', self
             return
+
+
+
+
+
 
 
         elif direction == 'DOWN':
             for i in range(self._grid_width):
                 tira.append(cols[i][::-1])
+
+
             # Sustituimos las tiras antiguas por las mergeadas
             print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            antes = copy.deepcopy(list(self._grid))
             for i in range(self._grid_width):
 
-                print ' antes = ', self
                 tmp1 = merge(tira[i])
                 tmp2 = tmp1[::-1]
                 self.change_col(i, tmp2)
-                # print
-                # print 'Cambiamos la tira ', i
-                # print
-                # print 'despues de DOWN = ', self
-            despues = deepcopy(list(self._grid))
+
+            despues = copy.deepcopy(list(self._grid))
             if antes == despues:
                 pass
             else:
                 self.new_tile()
-            # print ' despues de new_tile = ', self
             return
+
+
+
         if direction == 'LEFT':
             for i in range(self._grid_height):
                 tira.append(fils[i])
+
+
             # Sustituimos las tiras antiguas por las mergeadas
-            # print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            print ' Vamos a sustituir la tira antigua por la tira mergeada'
+            antes = copy.deepcopy(list(self._grid))
             for i in range(self._grid_height):
 
-                # print ' antes = ', self
                 self.change_row(i, merge(tira[i]))
-                # print
-                # print 'Cambiamos la tira ', i
-                # print
-                # print 'despues de LEFT = ', self
-            despues = deepcopy(list(self._grid))
+
+            despues = copy.deepcopy(list(self._grid))
             if antes == despues:
                 pass
             else:
                 self.new_tile()
-            # print ' despues de new_tile = ', self
             return
+
+
+
+
+
+
+
+
+
+
         elif direction == 'RIGHT':
             for i in range(self._grid_height):
                 tira.append(fils[i][::-1])
 
             # Sustituimos las tiras antiguas por las mergeadas
             print ' Vamos a sustituir la tira antigua por la tira mergeada'
-            antes = deepcopy(list(self._grid))
+            antes = copy.deepcopy(list(self._grid))
             for i in range(self._grid_height):
 
-                # print ' antes = ', self
                 tmp1 = merge(tira[i])
                 tmp2 = tmp1[::-1]
                 self.change_row(i, tmp2)
-                # print
-                # print 'Cambiamos la tira ', i
-                # print
-                # print 'despues de RIGHT = ', self
-            despues = deepcopy(list(self._grid))
+
+            despues = copy.deepcopy(list(self._grid))
             if antes == despues:
                 pass
             else:
                 self.new_tile()
-            # print ' despues de new_tile = ', self
             return
+
+
+
+
+
 
 
     def new_tile(self):
@@ -275,6 +287,5 @@ class TwentyFortyEight:
 
 
 poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
-
 
 
