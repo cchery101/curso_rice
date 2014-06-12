@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Clone of 2048 game.
 """
