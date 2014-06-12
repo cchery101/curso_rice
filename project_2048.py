@@ -106,7 +106,12 @@ class TwentyFortyEight:
         """
         Reset the game so the grid is empty.
         """
-        self._grid = [[0 for col in range(self._grid_width)] for row in range(self._grid_height)]
+        # self._grid = [[0 for col in range(self._grid_width)] for row in range(self._grid_height)]
+        list_of_ceros = self._grid_width * [0]
+        self._grid = []
+        for _ in range(self._grid_height):
+            self._grid.append(list(list_of_ceros))
+        return
 
     def __str__(self):
         """
@@ -281,6 +286,7 @@ class TwentyFortyEight:
         Set the tile at position row, col to have the given value.
         """
         self._grid[row][col] = value
+        return
 
     def get_tile(self, row, col):
         """

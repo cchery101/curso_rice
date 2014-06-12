@@ -93,14 +93,18 @@ class TwentyFortyEight:
         Cambia una fila en el grid
         """
         self._grid[row_number] = new_row
-
         return
 
     def reset(self):
         """
         Reset the game so the grid is empty.
         """
-        self._grid = [[0 for col in range(self._grid_width)] for row in range(self._grid_height)]
+        # self._grid = [[0 for col in range(self._grid_width)] for row in range(self._grid_height)]
+        list_of_ceros = self._grid_width * [0]
+        self._grid = []
+        for _ in range(self._grid_height):
+            self._grid.append(list(list_of_ceros))
+        return
 
     def __str__(self):
         """
