@@ -313,7 +313,7 @@ for i in range(14):
 
 print a
 print
-print '******************** Move ***************'
+print '******************** Move ****************'
 print 'UP'
 a.move('UP')
 
